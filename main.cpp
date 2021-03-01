@@ -6,9 +6,10 @@ using namespace std;
 
 int main(){
   King king(1);
+  Pawn pawn(1);
   string input;
-  cout << "Current king location: " << king.getLoc() << endl;
-  cout << "K: ";
+  cout << "Current A Pawn location: " << pawn.getLoc() << endl;
+  cout << "P: ";
   cin >> input;
   char in_abc = input.at(0);
   cout << in_abc << endl;
@@ -39,9 +40,9 @@ int main(){
   if(in_abc == 'h'){
     in_x_abc = 8;
   }
-  cout << in_y_123 << " " << in_x_abc;
-  king.makemove(in_x_abc, in_y_123);
-  cout << "Current king location: " << king.getLoc() << endl;
+  cout << in_x_abc << " " << in_y_123;
+  pawn.makemove(in_x_abc, in_y_123);
+  cout << "Current A pawn location: " << pawn.getLoc() << endl;
 
 
 }

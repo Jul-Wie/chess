@@ -2,6 +2,8 @@
 
 using namespace std;
 
+int square[8][8];
+
 class King{
 private:
       int x_abc;
@@ -43,3 +45,5 @@ public:
   }
 
 };
+
+

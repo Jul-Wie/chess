@@ -1,48 +1,53 @@
 #include <string>
 #include <iostream>
 #include "pieces.h"
+#include <algorithm>
 
 using namespace std;
 
+boardSquare board[8];
+king King;
+string piece;
+bool debugOnOff;
+void debugAsk(){
+  string debugMode;
+
+  cout << "Debug mode? [y/N]: ";
+  cin >> debugMode;
+
+  transform(debugMode.begin(), debugMode.end(), debugMode.begin(), ::toupper);
+
+  if((debugMode == "Y") || (debugMode == "YES")){
+    debugOnOff = 1;
+    cout << "Debugging mode enabled. (debugOnOff = 1) \n";
+  }
+  else if((debugMode == "N") || (debugMode == "NO")){
+    debugOnOff = 0;
+    cout << "Debugging mode disabled. \n";
+  }
+  else {
+    debugOnOff = 0;
+    cout << "INVALID INPUT (how u so dumb?) so imma just assume u too dumb to understand debuggin mode so its set off.";
+  }
+ 
+ return;
+}
+
+int game(){
+  cout << "pick piece to move: ";
+  cin >> piece;
+
+  if (piece != "king"){
+    cout << "not an existing piece pls try again. \n";
+    game();
+  }
+
+  King.makeMove();
+   return 0;
+ }
+
 int main(){
-  King king(1);
-  Pawn pawn(1);
-  string input;
-  cout << "Current A Pawn location: " << pawn.getLoc() << endl;
-  cout << "P: ";
-  cin >> input;
-  char in_abc = input.at(0);
-  cout << in_abc << endl;
-  int in_y_123 = input.at(1);
-   in_y_123 = in_y_123 - 48;
-  int in_x_abc;
-  if(in_abc == 'a'){
-    in_x_abc = 1;
-  }
-  if(in_abc == 'b'){
-    in_x_abc = 2;
-  }
-  if(in_abc == 'c'){
-    in_x_abc = 3;
-  }
-  if(in_abc == 'd'){
-    in_x_abc = 4;
-  }
-  if(in_abc == 'e'){
-    in_x_abc = 5;
-  }
-  if(in_abc == 'f'){
-    in_x_abc = 6;
-  }
-  if(in_abc == 'g'){
-    in_x_abc = 7;
-  }
-  if(in_abc == 'h'){
-    in_x_abc = 8;
-  }
-  cout << in_x_abc << " " << in_y_123;
-  pawn.makemove(in_x_abc, in_y_123);
-  cout << "Current A pawn location: " << pawn.getLoc() << endl;
-
-
+  debugAsk();
+  game();
+  return 0;
 }

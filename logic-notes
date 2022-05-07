@@ -1,0 +1,17 @@
+int Board::occupied[8]
+
+0=unoccupied
+
+1=occupied by white pawn
+2=occupied by white knight
+3=occupied by white bishop
+4=occupied by white rook
+5=occupied by white queen
+6=occupied by white king
+
+7=occupied by black pawn
+8=occupied by black knight
+9=occupied by black bishop
+10=occupied by black rook
+11=occupied by black queen
+12=occupied by black king

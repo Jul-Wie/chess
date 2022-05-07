@@ -5,10 +5,11 @@
 
 using namespace std;
 
-boardSquare board[8];
+
 king King;
+queen Queen;
 string piece;
-bool debugOnOff;
+ bool debugOnOff;
 void debugAsk(){
   string debugMode;
 
@@ -27,27 +28,34 @@ void debugAsk(){
   }
   else {
     debugOnOff = 0;
-    cout << "INVALID INPUT (how u so dumb?) so imma just assume u too dumb to understand debuggin mode so its set off.";
+    cout << "INVALID INPUT! so imma just assume you want it set off.\n";
   }
- 
+
  return;
 }
 
 int game(){
-  cout << "pick piece to move: ";
+while (1){
+  cout << "pick piece to move (enter 'exit' to exit.): ";
   cin >> piece;
+transform(piece.begin(), piece.end(), piece.begin(), ::toupper);
 
-  if (piece != "king"){
-    cout << "not an existing piece pls try again. \n";
-    game();
+if(piece == "KING"){
+ King.makeMove();
+}
+if(piece == "QUEEN"){
+Queen.makeMove();
+}
+if(piece == "EXIT"){
+  cout << "Exiting program. \n";
+  return 0;
   }
-
-  King.makeMove();
-   return 0;
  }
+}
 
 int main(){
   debugAsk();
+  setupBoard();
   game();
   return 0;
 }

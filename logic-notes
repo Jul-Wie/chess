@@ -15,3 +15,6 @@ int Board::occupied[8]
 10=occupied by black rook
 11=occupied by black queen
 12=occupied by black king
+
+
+POOPO!

@@ -1,6 +1,8 @@
 #include "pieces.h"
 #include <iostream>
 #include <string>
+#include <chrono>
+#include <thread>
 
 
 using namespace std;
@@ -136,12 +138,31 @@ void king::makeMove(){
     case 'h':
     newXCoord = 7;
     }
+    bool alreadyGaveSummary = 0;
 if(!((newYCoord-yCoordking) == 1 || (newYCoord-yCoordking == -1) || (newYCoord-yCoordking == 0))) {
   cout << "The King cannot move this far. Try again nerd. \n";
-  cout << "newYCoord-yCoordking(old)= " << newYCoord-yCoordking << "\n";
+
+  if(debugOnOff==1){
+  cout << "newYCoord-yCoordking(old) = " << newYCoord-yCoordking << "\n";
+}
 
   if(debugOnOff){
     oldVSNewDebug(newXCoord, newYCoord, xCoord, yCoordking);
+    alreadyGaveSummary = 1;
+  }
+  return;
+}
+
+if(!((newXCoord-xCoord) == 1 || (newXCoord-xCoord == -1) || (newXCoord-xCoord == 0))) {
+  cout << "The King cannot move this far. Try again nerd. \n";
+
+  if(debugOnOff==1){
+  cout << "newXCoord-xCoord[king] (old) = " << newXCoord-xCoord << "\n";
+}
+
+  if(debugOnOff && alreadyGaveSummary){
+    oldVSNewDebug(newXCoord, newYCoord, xCoord, yCoordking);
+    alreadyGaveSummary = 0;
   }
   return;
 }
@@ -194,11 +215,14 @@ if(board[newXCoord].yCoordOccupied[newYCoord] != 0){
 cout << "Square already occupied by the " << takenByPiece << " Try again.\n";
 return;
 }
+
 board[xCoord].yCoordOccupied[yCoordking] = 0;
 yCoordking = newYCoord;
 xCoord = newXCoord;
 board[xCoord].yCoordOccupied[yCoordking] = 6;
+
 cout << "your king's new position is " + getLoc() + "\n";
+std::this_thread::sleep_for(std::chrono::milliseconds(900));
 
 return;
 }
@@ -270,9 +294,14 @@ void queen::makeMove(){
   }
 
 if((newYCoord == yCoordqueen) && (newXCoord == xCoord)){
-  cout << "idiot didnt even movmovee the piece. TRY AGAIN. \n";
-  makeMove();
+  cout << "idiot didnt even movmovee the piece. TRY AGAIN. \n\n";
+  return;
 }
+if(!( (newYCoord-yCoordqueen == newXCoord - xCoord) || (newXCoord - xCoord == 0) || (newYCoord - yCoordqueen == 0) )){
+  cout << "The Queen can only move in a straight line or horizontally. AGAIN.\n";
+  return;
+}
+
 string takenByPiece = "";
   switch (board[newXCoord].yCoordOccupied[newYCoord]){
     case 1:

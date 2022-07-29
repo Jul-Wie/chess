@@ -2,6 +2,8 @@
 #include <iostream>
 #include "pieces.h"
 #include <algorithm>
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
@@ -10,7 +12,9 @@ king King;
 queen Queen;
 string piece;
  bool debugOnOff;
+
 void debugAsk(){
+
   string debugMode;
 
   cout << "Debug mode? [y/N]: ";
@@ -34,11 +38,31 @@ void debugAsk(){
  return;
 }
 
+void summary(){
+     int sleepytime = 80;
+
+     cout << "\n\n\n-----------------------------------------------\n\n";
+     std::this_thread::sleep_for(std::chrono::milliseconds(sleepytime));
+     cout << "You can move the King (enter 'King'):";
+     std::this_thread::sleep_for(std::chrono::milliseconds(sleepytime));
+     cout << "\n   Current position: ";
+     std::this_thread::sleep_for(std::chrono::milliseconds(sleepytime));
+     cout << King.getLoc() + "\n\nThe Queen (enter 'Queen'):";
+     std::this_thread::sleep_for(std::chrono::milliseconds(sleepytime));
+     cout << "\n   Current position: " + Queen.getLoc();
+     std::this_thread::sleep_for(std::chrono::milliseconds(sleepytime));
+     cout << "\n\nOr you can exit the program by typing 'exit'\n";
+     std::this_thread::sleep_for(std::chrono::milliseconds(sleepytime));
+     cout << "\n-----------------------------------------------\n\n\n";
+     std::this_thread::sleep_for(std::chrono::milliseconds(sleepytime));
+}
+
 int game(){
 while (1){
-  cout << "pick piece to move (enter 'exit' to exit.): ";
+  summary();
+  cout << "pick piece to move: ";
   cin >> piece;
-transform(piece.begin(), piece.end(), piece.begin(), ::toupper);
+  transform(piece.begin(), piece.end(), piece.begin(), ::toupper);
 
 if(piece == "KING"){
  King.makeMove();
@@ -50,6 +74,7 @@ if(piece == "EXIT"){
   cout << "Exiting program. \n";
   return 0;
   }
+
  }
 }
 
